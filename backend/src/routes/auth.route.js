@@ -2,12 +2,10 @@
 //  Here, the logic for User Login/Logout and Sign-Up will be return.
 
 import express from "express";
-import { login, logout, signup, updateProfile } from "../controllers/auth.controller.js";
+import { checkAuth, login, logout, signup, updateProfile } from "../controllers/auth.controller.js";
 import { protectRoute } from "../middleware/auth.middleware.js";
-import { checkAuth } from "../controllers/auth.controller.js";
 
 const router = express.Router();
-
 
 //  ahiya khali route aapela che now, enu logic is present in Controllers.
 

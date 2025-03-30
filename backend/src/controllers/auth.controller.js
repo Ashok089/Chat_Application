@@ -77,7 +77,7 @@ export const login = async (req , res) => {
 
       generateToken(user._id , res)
 
-      res.status(201).json({
+      res.status(200).json({
         _id: user._id,
         fullName: user.fullName,
         email: user.email,
@@ -108,7 +108,7 @@ export const updateProfile = async (req,res) => {
     try {
 
       const {profilePic} = req.body;
-      const userID = req.user._id;
+      const userId = req.user._id;
        
       if(!profilePic) {
         return res.status(400).json({ message : "Profile pic is required" });
@@ -117,6 +117,8 @@ export const updateProfile = async (req,res) => {
      const uploadResponse =  await cloudinary.uploader.upload(profilePic)
      const updateUser = await User.findByIdAndUpdate(userId , {profilePic: uploadResponse.secure_url} , {new:true})
 
+
+console.log("Cloudinary Upload Response:", uploadResponse);
      res.status(200).json(updateUser);
 
     } catch (error) {
@@ -131,7 +133,7 @@ export const checkAuth = (req,res) => {
   try {
     res.status(200).json(req.user);
   } catch (error) {
-    console.log("error in checkAuth controller:", error );
+    console.log("error in checkAuth controller:", error.message );
     res.status(500).json({ message : "Internal server error" });
   }
 }
