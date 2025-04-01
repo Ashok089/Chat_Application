@@ -1,4 +1,3 @@
-
 import { useChatStore } from "../store/useChatStore";
 import { useEffect, useRef } from "react";
 
@@ -23,6 +22,9 @@ const ChatContainer = () => {
   useEffect(() => {
     getMessages(selectedUser._id);
 
+    subscribeToMessages();
+
+    return () => unsubscribeFromMessages();
   }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
 
   useEffect(() => {
@@ -87,5 +89,4 @@ const ChatContainer = () => {
     </div>
   );
 };
-
 export default ChatContainer;
